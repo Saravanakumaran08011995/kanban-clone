@@ -18,7 +18,8 @@ const Section = ({ status, priority, setTasks, tasksToMap }) => {
     accept: "task",
     drop: (item) => addItemToSection(item.id),
     collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
+      canDrop: monitor.canDrop(),
+      isOver: monitor.isOver(),
     }),
   }));
 
@@ -37,11 +38,10 @@ const Section = ({ status, priority, setTasks, tasksToMap }) => {
   return (
     <div
       ref={drop}
-      className={`w-[354px] h-full  fold:ml-10 mb-5 lg:ml-0 bg-container rounded-[16px]   ${
+      className={`w-[354px] h-full fold:ml-10 mb-5 lg:ml-0 bg-container rounded-[16px] ${
         isOver ? "bg-slate-200" : ""
-      } `}
+      }`}
     >
-  
       <div className="mb-2">
         <Header text={text} count={tasksToMap.length} />
       </div>

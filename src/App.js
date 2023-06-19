@@ -1,10 +1,27 @@
 import React, { useState } from "react";
 import ListTask from "./Components/ListTask";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { MultiBackend , TouchTransition } from 'react-dnd-multi-backend';
 import { Sidebar } from "./Components/Sidebar";
 
+const HTML5toTouch = {
+  backends: [
+    {
+      backend: HTML5Backend,
+    },
+    {
+      backend: TouchBackend,
+      options: { enableMouseEvents: true },
+      preview: true,
+      transition: TouchTransition,
+    },
+  ],
+};
+
 function App() {
+
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -78,7 +95,7 @@ function App() {
   ]);
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={MultiBackend} options={HTML5toTouch}>
       <div className="lg:flex">
         {/* SideBar  */}
         <div>
